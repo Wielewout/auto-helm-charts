@@ -3,6 +3,16 @@ entries:
   example:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2023-04-30T18:55:15.417995216Z"
+    description: A Helm chart for Kubernetes
+    digest: be3a4be4be7370c6ce54e966529f5f64b167e28baa02557ca2d5060d46556f07
+    name: example
+    type: application
+    urls:
+    - https://github.com/Wielewout/auto-helm-charts/releases/download/example-0.2.0/example-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2023-04-30T18:47:46.981109435Z"
     description: A Helm chart for Kubernetes
     digest: 9f1521afe9c02ea07e1a6467181431fac1cb555d7d6fe6f11c9391864c922610
@@ -51,4 +61,4 @@ entries:
     urls:
     - https://github.com/Wielewout/auto-helm-charts/releases/download/example-0.0.0/example-0.0.0.tgz
     version: 0.0.0
-generated: "2023-04-30T18:47:46.981128034Z"
+generated: "2023-04-30T18:55:15.418023316Z"
