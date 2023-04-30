@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 config:
-  some: ding
+  some: thing
 
 replicaCount: 1
 
