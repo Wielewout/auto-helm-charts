@@ -3,8 +3,8 @@
 # Declare variables to be passed into your templates.
 
 config:
-  some: thing
-  other: thing
+  some: thing nice
+  other: thing maybe not
 
 image:
   repository: nginx
