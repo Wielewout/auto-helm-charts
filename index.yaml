@@ -1,3 +1,14 @@
 apiVersion: v2
-entries: {}
-generated: "2023-04-30T18:26:25.962240219+02:00"
+entries:
+  example:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2023-04-30T17:20:58.691176737Z"
+    description: A Helm chart for Kubernetes
+    digest: ddf2d3598682e8fca234407cd666d1072489660afdc7452362490ef826be92c1
+    name: example
+    type: application
+    urls:
+    - https://github.com/Wielewout/auto-helm-charts/releases/download/example-0.0.0/example-0.0.0.tgz
+    version: 0.0.0
+generated: "2023-04-30T17:20:58.691180737Z"
