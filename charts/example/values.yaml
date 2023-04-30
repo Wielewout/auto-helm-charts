@@ -6,8 +6,6 @@ config:
   some: thing
   other: thing
 
-replicaCount: 1
-
 image:
   repository: nginx
   pullPolicy: IfNotPresent
