@@ -53,8 +53,8 @@ jobs:
                 cp.exec(`./bin/rm-release-fixture ${chart} -v ${version}`, execCallback);
               };
 
-              const createReleaseBranch = (chart, versionMajor, versionMinor) => {
-                console.log(`Creating release branch ${chart}-${versionMajor}.${versionMinor} for patches`);
+              const createReleaseBranch = (chart, versionMajor, versionMinor, commit) => {
+                console.log(`Creating release branch ${chart}-${versionMajor}.${versionMinor} based on ${commit.id} for patches`);
                 cp.exec(`./bin/create-release-branch ${chart} ${versionMajor}.${versionMinor} -p -s -c ${commit.id}`, execCallback);
               };
 
@@ -99,7 +99,7 @@ jobs:
                   continue;
                 }
 
-                createReleaseBranch(chart, versionMajor, versionMinor);
+                createReleaseBranch(chart, versionMajor, versionMinor, commit);
               }
 
   release-charts:
