@@ -1,0 +1,68 @@
+#!/bin/bash
+
+BASE_DIR=$(dirname "$0")
+GIT_ROOT=$(cd "${BASE_DIR}/.." && pwd)
+
+function error() {
+    echo "${1}" 1>&2
+    exit 1
+}
+
+if [ ${#} -lt 1 ]; then
+    error "Invalid number of arguments: requires at least 1 (chart)"
+fi
+
+chart="${1}"; shift
+
+skip_commit=false
+verify_version=""
+
+while getopts ":sv:" opt; do
+    case ${opt} in
+        s )
+            skip_commit=true
+        ;;
+        v )
+            verify_version="${OPTARG}"
+        ;;
+        \? )
+            error "Invalid Option: -${OPTARG}"
+        ;;
+        : )
+            error "Invalid option: ${OPTARG} requires an argument"
+        ;;
+    esac
+done
+shift $((OPTIND -1))
+
+if [ ! -f "${GIT_ROOT}/charts/${chart}/Chart.yaml" ]; then
+    error "${chart} is not a valid chart"
+fi
+
+version="$(jq \
+    --arg chart_path "charts/${chart}" \
+    '.packages[$chart_path]."release-as"' \
+    "${GIT_ROOT}"/release-please-config.json)"
+
+if [ "${version}" == "null" ]; then
+    echo "No release fixture set for ${chart}"
+    exit 0
+fi
+
+if [ "${verify_version}" != "" ] && [ "${version}" != "${verify_version}" ]; then
+    error "Version ${version} doesn't match verification version ${verify_version}"
+fi
+
+echo "Removing release fixture ${chart} ${version}"
+
+contents="$(jq \
+    --arg chart_path "charts/${chart}" \
+    'del(.packages[$chart_path]."release-as")' \
+    "${GIT_ROOT}"/release-please-config.json)"
+echo -E "${contents}" > "${GIT_ROOT}"/release-please-config.json
+
+if [[ "${skip_commit}" != true ]]; then
+    git add "${GIT_ROOT}"/release-please-config.json
+    git commit -m "chore: remove ${chart} ${version} release fixture"
+    git push
+fi

@@ -1,0 +1,35 @@
+#!/bin/bash
+
+BASE_DIR=$(dirname "$0")
+GIT_ROOT=$(cd "${BASE_DIR}/.." && pwd)
+
+function error() {
+    echo "${1}" 1>&2
+    exit 1
+}
+
+if [ ${#} -lt 2 ]; then
+    error "Invalid number of arguments: requires at least 2 (chart and version)"
+fi
+
+chart="${1}"
+version="${2}"
+
+if [ ! -f "${GIT_ROOT}/charts/${chart}/Chart.yaml" ]; then
+    error "${chart} is not a valid chart"
+fi
+
+if ! git diff --cached --exit-code > /dev/null 2>&1; then
+    error "Commit or discard staging changes first"
+fi
+
+contents="$(jq \
+    --arg chart_path "charts/${chart}" \
+    --arg version "${version}" \
+    '.packages[$chart_path]."release-as" = $version' \
+    "${GIT_ROOT}"/release-please-config.json)"
+echo -E "${contents}" > "${GIT_ROOT}"/release-please-config.json
+
+git add "${GIT_ROOT}"/release-please-config.json
+git commit -m "chore: create ${chart} ${version} PR"
+git push

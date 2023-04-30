@@ -1,0 +1,3 @@
+#!/bin/bash
+
+helm repo add wielewout https://wielewout.github.io/auto-helm-charts/

@@ -1,0 +1,131 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+      - releases/**
+
+jobs:
+
+  release-please:
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Release please
+        uses: google-github-actions/release-please-action@v3
+        with:
+          command: manifest-pr
+          default-branch: ${{ github.ref_name }}
+
+      - name: Checkout
+        if: ${{ github.ref_name }} == "main"
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set git user
+        if: ${{ github.ref_name }} == "main"
+        uses: git-actions/set-user@v1
+
+      - name: Create release branches from release commits
+        if: ${{ github.ref_name }} == "main"
+        uses: actions/github-script@v6.4.1
+        env:
+          COMMITS: ${{ toJSON(github.event.commits) }}
+        with:
+          result-encoding: string
+          script: |
+              let cp = require('child_process');
+
+              const execCallback = (error, stdout, stderr) => {
+                console.log(stdout);
+                console.error(stderr);
+                if (error !== null) {
+                  console.error(`Execution error: ${error}`);
+                }
+              };
+
+              const removeReleaseFixture = (chart, version) => {
+                console.log(`Removing release fixture for ${chart} ${version} if applicable`);
+                cp.exec(`./bin/rm-release-fixture ${chart} -v ${version}`, execCallback);
+              };
+
+              const createReleaseBranch = (chart, versionMajor, versionMinor) => {
+                console.log(`Creating release branch ${chart}-${versionMajor}.${versionMinor} for patches`);
+                cp.exec(`./bin/create-release-branch ${chart} ${versionMajor}.${versionMinor} -p -s -c ${commit.id}`, execCallback);
+              };
+
+              const commits = JSON.parse(process.env.COMMITS);
+              for (const commit of commits) {
+                console.log(commit.message);
+
+                const regex = /^chore\((main|releases\/[a-zA-Z0-9\.\_\-]+)\): release ([a-zA-Z0-9\_\-]*) ([0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9\.\-]*)?)( .*$)?/g;
+                if (!regex.test(commit.message)) {
+                  console.log("Not a release commit...");
+                  continue;
+                }
+                console.log("Found a release commit!");
+
+                const commitMessageSplitBySpace = commit.message.split(" ");
+                if (commitMessageSplitBySpace.length < 4) {
+                  console.error("Not enough parts split by space in release commit");
+                  continue;
+                }
+                const chart = commitMessageSplitBySpace[2];
+                const version = commitMessageSplitBySpace[3];
+
+                removeReleaseFixture(chart, version);
+
+                if (version.includes("-")) {
+                  console.log(`${version} is not an official release`);
+                  continue;
+                }
+
+                const versionArray = version.split(".");
+                if (versionArray.length != 3) {
+                  console.error(`${version} does not consist of 3 parts separated by '.'`);
+                  continue;
+                }
+
+                const versionMajor = parseInt(versionArray[0]);
+                const versionMinor = parseInt(versionArray[1]);
+                const versionPatch = parseInt(versionArray[2]);
+
+                if (versionPatch != 0) {
+                  console.log(`${version} is not a feature release`);
+                  continue;
+                }
+
+                createReleaseBranch(chart, versionMajor, versionMinor);
+              }
+
+  release-charts:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set git user
+        uses: git-actions/set-user@v1
+
+      - name: Install Helm
+        uses: azure/setup-helm@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Add helm repositories
+        run: ./bin/add-repos
+
+      - name: Run chart releaser
+        uses: helm/chart-releaser-action@v1.5.0
+        with:
+          config: .cr.yaml
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
