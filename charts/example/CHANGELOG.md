@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.1.0](https://github.com/Wielewout/auto-helm-charts/compare/example-0.0.2...example-v0.1.0) (2023-04-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove autoscaling
+
+### Features
+
+* Remove autoscaling ([6a11bdf](https://github.com/Wielewout/auto-helm-charts/commit/6a11bdf850cde2a61ecb1ab455086b530e76894e))
+
 ## [0.0.2](https://github.com/Wielewout/auto-helm-charts/compare/example-0.0.1...example-v0.0.2) (2023-04-30)
 
 
