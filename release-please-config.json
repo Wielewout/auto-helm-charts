@@ -9,5 +9,10 @@
   "plugins": [
     "sentence-case"
   ],
-  "packages": {}
+  "packages": {
+    "charts/example": {
+      "component": "example",
+      "package-name": "example"
+    }
+  }
 }
