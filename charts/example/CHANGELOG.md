@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.2.0](https://github.com/Wielewout/auto-helm-charts/compare/example-0.1.1...example-v0.2.0) (2023-04-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove replica count
+
+### Features
+
+* Remove replica count ([d55e8c6](https://github.com/Wielewout/auto-helm-charts/commit/d55e8c680e42c1ad004633ea810a84704779dd79))
+
 ## [0.1.1](https://github.com/Wielewout/auto-helm-charts/compare/example-0.1.0...example-v0.1.1) (2023-04-30)
 
 
