@@ -5,6 +5,7 @@
   "label": "autorelease",
   "release-label": "autorelease",
   "include-component-in-tag": true,
+  "include-v-in-tags": false,
   "separate-pull-requests": true,
   "bump-minor-pre-major": true,
   "bump-patch-for-minor-pre-major": true,
