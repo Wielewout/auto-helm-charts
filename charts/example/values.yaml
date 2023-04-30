@@ -2,6 +2,9 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+config:
+  some: ding
+
 replicaCount: 1
 
 image:
