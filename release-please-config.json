@@ -2,6 +2,8 @@
   "release-type": "helm",
   "versioning": "default",
   "skip-github-release": true,
+  "label": "autorelease",
+  "release-label": "autorelease",
   "include-component-in-tag": true,
   "separate-pull-requests": true,
   "bump-minor-pre-major": true,
