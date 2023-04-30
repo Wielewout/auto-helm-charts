@@ -9,6 +9,8 @@ jobs:
 
   label-release-pr:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     steps:
       - name: Remove pending release label
         uses: buildsville/add-remove-label@v2.0.0
