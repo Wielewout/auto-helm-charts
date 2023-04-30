@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.2.2](https://github.com/Wielewout/auto-helm-charts/compare/example-v0.2.1...example-v0.2.2) (2023-04-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove replica count
+* remove autoscaling
+
+### Features
+
+* Add initial helm chart ([d4b0c30](https://github.com/Wielewout/auto-helm-charts/commit/d4b0c309eff812008aca847207b9d1a75471df26))
+* Add other feature ([8be85f8](https://github.com/Wielewout/auto-helm-charts/commit/8be85f8c89e802eff656077fcf0436a179cb1604))
+* Add some feature ([c52ea95](https://github.com/Wielewout/auto-helm-charts/commit/c52ea9550c94c5d532da1fd96eb5b4163b816994))
+* Remove autoscaling ([6a11bdf](https://github.com/Wielewout/auto-helm-charts/commit/6a11bdf850cde2a61ecb1ab455086b530e76894e))
+* Remove replica count ([d55e8c6](https://github.com/Wielewout/auto-helm-charts/commit/d55e8c680e42c1ad004633ea810a84704779dd79))
+
+
+### Bug Fixes
+
+* Change default config to expected ([15bb525](https://github.com/Wielewout/auto-helm-charts/commit/15bb5258208e13a7a6eae78518704b1eb9e92bb3))
+* Change default for some to thing ([62bcc43](https://github.com/Wielewout/auto-helm-charts/commit/62bcc43ee583fdb1c144502e1b1b212eb12fd98d))
+
 ## [0.2.1](https://github.com/Wielewout/auto-helm-charts/compare/example-0.2.0...example-v0.2.1) (2023-04-30)
 
 
