@@ -10,7 +10,7 @@ function usage() {
     echo "    chart version           Create a release branch for chart and version."
     echo "        -p                  Push the release branch."
     echo "        -s                  Stay on the current branch."
-    echo "        -c <ref>            Start the release branch from commit (default HEAD)."
+    echo "        -c <ref>            Start the release branch from commit <ref> (default HEAD)."
     exit 0
 }
 
