@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/Wielewout/auto-helm-charts/compare/example-0.2.0...example-v0.2.1) (2023-04-30)
+
+
+### Bug Fixes
+
+* Change default config to expected ([15bb525](https://github.com/Wielewout/auto-helm-charts/commit/15bb5258208e13a7a6eae78518704b1eb9e92bb3))
+
 ## [0.2.0](https://github.com/Wielewout/auto-helm-charts/compare/example-0.1.1...example-v0.2.0) (2023-04-30)
 
 
