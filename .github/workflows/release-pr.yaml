@@ -1,0 +1,25 @@
+name: Label Release PRs
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+
+  label-release-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Remove pending release label
+        uses: buildsville/add-remove-label@v2.0.0
+        with:
+          type: remove
+          labels: "release: pending"
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Add approved release label
+        uses: buildsville/add-remove-label@v2.0.0
+        with:
+          type: add
+          labels: "release: approved"
+          token: ${{ secrets.GITHUB_TOKEN }}
