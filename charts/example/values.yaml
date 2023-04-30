@@ -4,6 +4,7 @@
 
 config:
   some: thing
+  other: thing
 
 replicaCount: 1
 
