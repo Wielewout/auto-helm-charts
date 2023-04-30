@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/Wielewout/auto-helm-charts/compare/example-0.1.0...example-v0.1.1) (2023-04-30)
+
+
+### Features
+
+* Add other feature ([8be85f8](https://github.com/Wielewout/auto-helm-charts/commit/8be85f8c89e802eff656077fcf0436a179cb1604))
+
 ## [0.1.0](https://github.com/Wielewout/auto-helm-charts/compare/example-0.0.2...example-v0.1.0) (2023-04-30)
 
 
