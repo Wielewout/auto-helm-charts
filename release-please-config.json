@@ -1,6 +1,6 @@
 {
   "release-type": "helm",
-  "versioning": "default",
+  "versioning": "always-bump-patch",
   "skip-github-release": true,
   "label": "release: pending",
   "release-label": "release: approved",
